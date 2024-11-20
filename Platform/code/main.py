@@ -12,7 +12,12 @@ class Game:
         self.all_sprites = pygame.sprite.Group()
         self.collision_sprites = pygame.sprite.Group()
 
+    def setup(self):
+        tmx_map = load_pygame(join('data', 'maps', 'world.tmx'))
 
+        for x, y, image in tmx_map.get_layer_by_name('Main').tiles():
+            Sprite((x * TILE_SIZE,y * TILE_SIZE), image, (self.all_sprites, self.collision_sprites))
+    
     def run(self):
         while self.running:
             dt = self.clock.tick(FRAMERATE) / 1000 
